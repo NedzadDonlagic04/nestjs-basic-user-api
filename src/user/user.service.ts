@@ -24,4 +24,22 @@ export class UserService {
             } 
         });
     }
+
+    async updateUser(user_id: string, data: Prisma.UserUpdateInput) {
+        return this.prisma.user.update({
+            where: { user_id },
+            data,
+            select: {
+                user_name: true,
+                user_age: true,
+                user_email: true
+            }
+        });
+    }
+
+    async deleteUser(user_id: string) {
+        return this.prisma.user.deleteMany({
+            where: { user_id }
+        });
+    }
 }
