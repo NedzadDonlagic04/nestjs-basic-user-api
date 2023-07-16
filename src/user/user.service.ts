@@ -10,7 +10,18 @@ export class UserService {
         return this.prisma.user.findMany();
     }
 
+    async getUsersWithSameUserName(user_name: string) {
+        return this.prisma.user.findMany({
+            where: { user_name }
+        });
+    }
+
     async addUser(data: Prisma.UserCreateInput) {
-        return this.prisma.user.create({ data });
+        return this.prisma.user.create({ data, select: {
+                user_name: true,
+                user_age: true,
+                user_email: true
+            } 
+        });
     }
 }
