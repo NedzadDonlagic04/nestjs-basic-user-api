@@ -37,9 +37,15 @@ export class UserService {
         });
     }
 
-    async deleteUser(user_id: string) {
+    async deleteUser(user_id: string): Promise<Prisma.BatchPayload> {
         return this.prisma.user.deleteMany({
             where: { user_id }
+        });
+    }
+
+    async loginUser(data: Prisma.UserWhereInput): Promise<number> {
+        return this.prisma.user.count({
+            where: data
         });
     }
 }
